@@ -27,7 +27,7 @@ app.get("/", async (req, res) => {
 app.get("/product/:id", async (req, res) => {
   const id = req.params.id;
   const searchResults = await DDG.searchImages(id, { safeSearch: DDG.SafeSearchType.STRICT });
-  res.send(searchResults?.results[0]?.image);
+  res.send({imageUrl: searchResults?.results[0]?.image});
 });
 
 app.listen(port, () => console.log(`The server is listening on port ${port}`))

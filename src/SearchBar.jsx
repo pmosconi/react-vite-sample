@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Checkbox , TextFilter, SpaceBetween  } from "@cloudscape-design/components";
 
 export function SearchBar({
   filterText,
@@ -8,18 +9,18 @@ export function SearchBar({
 }) {
   return (
     <form>
-      <input 
-        type="text" 
-        value={filterText} placeholder="Search..." 
-        onChange={(e) => onFilterTextChange(e.target.value)} />
-      <label>
-        <input 
-          type="checkbox" 
-          checked={inStockOnly} 
-          onChange={(e) => onInStockOnlyChange(e.target.checked)} />
-        {' '}
-        Only show products in stock
-      </label>
+      <SpaceBetween size="m">
+        <TextFilter 
+          type="text" 
+          filteringText={filterText} placeholder="Search..." 
+          onChange={({ detail }) => onFilterTextChange(detail.filteringText)} 
+        />
+          <Checkbox  
+            checked={inStockOnly} 
+            onChange={({ detail }) => onInStockOnlyChange(detail.checked)}>
+            Only show products in stock
+        </Checkbox>
+      </SpaceBetween>
     </form>
   );
 }

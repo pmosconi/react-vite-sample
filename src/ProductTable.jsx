@@ -1,48 +1,39 @@
 import PropTypes from 'prop-types';
-import { ProductCategoryRow } from './ProductCategoryRow';
-import { ProductRow } from './ProductRow';
 import { productsShape } from './utils/productShape';
+import { COLUMNS } from './utils/tableColumns';
+import { Table, Box, Header } from "@cloudscape-design/components";
 
 export function ProductTable({ products, filterText, inStockOnly }) {
-  const rows = [];
-  let lastCategory = null;
+  let currentCategory;
 
-  products.forEach((product) => {
-    if (
-      product.name.toLowerCase().indexOf(
-        filterText.toLowerCase()
-      ) === -1
-    ) {
-      return;
+  const rows = products.filter(product => 
+    (filterText.length ? product.name.toLowerCase().includes(filterText.toLowerCase()) : true)
+    && (inStockOnly ? product.stocked : true)
+  ).map(product => {
+    if (product.category !== currentCategory) {
+      currentCategory = product.category;
+      return product;
     }
-    if (inStockOnly && !product.stocked) {
-      return;
-    }
-    if (product.category !== lastCategory) {
-      rows.push(
-        <ProductCategoryRow
-          category={product.category}
-          key={product.category} />
-      );
-    }
-    rows.push(
-      <ProductRow
-        product={product}
-        key={product.name} />
-    );
-    lastCategory = product.category;
+    return { ...product, category: null };
   });
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Price</th>
-        </tr>
-      </thead>
-      <tbody>{rows}</tbody>
-    </table>
+    <Table 
+      columnDefinitions={COLUMNS}
+      items={rows}
+      loadingText="Loading products..."
+      sortingDisabled
+      empty={
+        <Box
+          margin={{ vertical: "xs" }}
+          textAlign="center"
+          color="inherit"
+        >
+          <b>No product found</b>
+        </Box>
+        }
+        header={<Header>Products</Header>}
+    />
   );
 }
 

@@ -1,13 +1,32 @@
-import { useState } from 'react';
-import { productsShape } from './utils/productShape';
+import { useState, useEffect } from 'react';
 import { ProductTable } from './ProductTable';
 import { SearchBar } from './SearchBar';
-import Container from "@cloudscape-design/components/container";
-import SpaceBetween from "@cloudscape-design/components/space-between";
+import {Container, SpaceBetween, Spinner} from "@cloudscape-design/components";
 
-export function FilterableProductTable({ products }) {
+export function FilterableProductTable() {
   const [filterText, setFilterText] = useState('');
   const [inStockOnly, setInStockOnly] = useState(false);
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch('http://localhost:8000')
+      .then(response => response.json())
+      .then(json => {
+        setProducts(json);
+        setIsLoading(false);
+      })
+      .catch(error => console.error(error));
+  }, []);
+
+  if (isLoading) {
+    return (
+      <Container>
+        <Spinner size="large" />
+      </Container>
+    );
+  }
 
   return (
     <Container>
@@ -27,7 +46,3 @@ export function FilterableProductTable({ products }) {
     </Container>
   );
 }
-
-FilterableProductTable.propTypes = {
-  products: productsShape
-};

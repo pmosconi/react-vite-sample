@@ -1,5 +1,4 @@
 import { FilterableProductTable } from './FilterableProductTable';
-import { PRODUCTS } from './utils/products';
 import { AppLayout, ContentLayout, Header } from '@cloudscape-design/components';
 
 export default function App() {
@@ -10,7 +9,7 @@ export default function App() {
         <ContentLayout
           header={<Header variant="h1">React Demo</Header>}
         >
-        <FilterableProductTable products={PRODUCTS} />
+        <FilterableProductTable />
       </ContentLayout>
       }
       navigationHide

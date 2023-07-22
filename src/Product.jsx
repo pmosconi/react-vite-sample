@@ -17,7 +17,7 @@ export function Product() {
         setIsLoading(false);
       })
       .catch(error => console.error(error));
-  }, []);
+  }, [id]);
 
   if (isLoading) {
     return (

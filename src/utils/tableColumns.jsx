@@ -1,4 +1,5 @@
 import { InStock, OutOfStock } from '../StockIndicators';
+import Link from "@cloudscape-design/components/link";
 
 export const COLUMNS = [
   {
@@ -9,7 +10,7 @@ export const COLUMNS = [
   {
     header: 'Name',
     id: 'name',
-    cell: item => item.name,
+    cell: item => <Link href={`/product/${item.name}`}>{item.name}</Link>,
   },
   {
     header: 'Price',
@@ -20,5 +21,5 @@ export const COLUMNS = [
     header: 'Stocked',
     id: 'stocked',
     cell: item => item.stocked ? <InStock /> : <OutOfStock />,
-  }
+  },
 ];

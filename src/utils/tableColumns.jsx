@@ -1,5 +1,5 @@
 import { InStock, OutOfStock } from '../StockIndicators';
-import Link from "@cloudscape-design/components/link";
+import { NavLink } from '../NavLink';
 
 export const COLUMNS = [
   {
@@ -10,7 +10,7 @@ export const COLUMNS = [
   {
     header: 'Name',
     id: 'name',
-    cell: item => <Link href={`/product/${item.name}`}>{item.name}</Link>,
+    cell: item => <NavLink href={`/product/${item.name}`}>{item.name}</NavLink>,
   },
   {
     header: 'Price',

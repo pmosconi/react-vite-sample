@@ -13,14 +13,18 @@
   "dependencies": {
     "@cloudscape-design/components": "^3.0.341",
     "@cloudscape-design/global-styles": "^1.0.12",
+    "@tanstack/react-query": "^4.32.0",
+    "@tanstack/react-query-devtools": "^4.32.0",
     "install": "^0.13.0",
     "npm": "^9.8.1",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.14.2"
+    "react-router-dom": "^6.14.2",
+    "use-awsui-router": "^2.0.1"
   },
   "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^4.29.25",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@vitejs/plugin-react": "^4.0.3",

@@ -1,24 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ProductTable } from './ProductTable';
 import { SearchBar } from './SearchBar';
 import {Container, SpaceBetween, Spinner} from "@cloudscape-design/components";
+import { useQuery } from '@tanstack/react-query';
+
+const getProducts = () =>  fetch('http://localhost:8000')
+  .then(response => response.json())
+  .then(json => json);
 
 export function FilterableProductTable() {
   const [filterText, setFilterText] = useState('');
   const [inStockOnly, setInStockOnly] = useState(false);
-  const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    setIsLoading(true);
-    fetch('http://localhost:8000')
-      .then(response => response.json())
-      .then(json => {
-        setProducts(json);
-        setIsLoading(false);
-      })
-      .catch(error => console.error(error));
-  }, []);
+  const { data: products, isLoading } = useQuery({ queryKey: ['products'], queryFn: getProducts });
 
   if (isLoading) {
     return (
@@ -38,7 +32,7 @@ export function FilterableProductTable() {
           onInStockOnlyChange={setInStockOnly} 
         />
         <ProductTable 
-          products={products} 
+          products={products || []} 
           filterText={filterText}
           inStockOnly={inStockOnly} 
         />

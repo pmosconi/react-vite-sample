@@ -3,10 +3,7 @@ import { ProductTable } from './ProductTable';
 import { SearchBar } from './SearchBar';
 import {Container, SpaceBetween, Spinner} from "@cloudscape-design/components";
 import { useQuery } from '@tanstack/react-query';
-
-const getProducts = () =>  fetch('http://localhost:8000')
-  .then(response => response.json())
-  .then(json => json);
+import { getProducts } from './utils/api';
 
 export function FilterableProductTable() {
   const [filterText, setFilterText] = useState('');

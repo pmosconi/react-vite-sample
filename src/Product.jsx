@@ -1,10 +1,7 @@
 import { Button, Container, SpaceBetween, Spinner} from "@cloudscape-design/components";
 import { useParams, useNavigate  } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-
-const getProductImage = id =>  fetch(`http://localhost:8000/product/${id}`)
-  .then(response => response.json())
-  .then(json => json);
+import { getProductImage } from './utils/api';
 
 export function Product() {
   const { id } = useParams();
